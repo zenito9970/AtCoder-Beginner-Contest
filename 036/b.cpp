@@ -1,4 +1,4 @@
-// created: 2016/02/06 21:05:07
+// created: 2016/04/09 21:04:40
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,19 +16,18 @@ using namespace std;
 
 int main() {
     int n; cin >> n;
-    vstring s(n);
-    vint p(n);
-    int sum = 0;
+    vector<vector<char>> board(n, vector<char>(n));
     rep(i, n) {
-        cin >> s[i] >> p[i];
-        sum += p[i];
-    }
-    rep(i, n) {
-        if(sum / 2.0 < p[i]) {
-            cout << s[i] << endl;
-            return 0;
+        rep(j, n) {
+            cin >> board[i][j];
         }
     }
-    cout << "atcoder" << endl;
+    
+    rep(j, n) {
+        rep(i, n) {
+            cout << board[n-i-1][j];
+        }
+        cout << endl;
+    }
     return 0;
 }

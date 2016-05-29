@@ -1,4 +1,4 @@
-// created: 2016/02/06 21:05:07
+// created: 2016/04/09 21:00:35
 #include <iostream>
 #include <string>
 #include <vector>
@@ -15,20 +15,7 @@
 using namespace std;
 
 int main() {
-    int n; cin >> n;
-    vstring s(n);
-    vint p(n);
-    int sum = 0;
-    rep(i, n) {
-        cin >> s[i] >> p[i];
-        sum += p[i];
-    }
-    rep(i, n) {
-        if(sum / 2.0 < p[i]) {
-            cout << s[i] << endl;
-            return 0;
-        }
-    }
-    cout << "atcoder" << endl;
+    int a, b; cin >> a >> b;
+    cout << ceil(b/(double)a) << endl;
     return 0;
 }

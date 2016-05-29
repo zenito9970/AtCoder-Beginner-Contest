@@ -1,4 +1,4 @@
-// created: 2016/02/06 21:05:07
+// created: 2016/03/26 20:54:01
 #include <iostream>
 #include <string>
 #include <vector>
@@ -15,20 +15,11 @@
 using namespace std;
 
 int main() {
-    int n; cin >> n;
-    vstring s(n);
-    vint p(n);
-    int sum = 0;
-    rep(i, n) {
-        cin >> s[i] >> p[i];
-        sum += p[i];
+    int W, H; cin >> W >> H;
+    if(int(H * 4 / 3.0) == W) {
+        cout << "4:3" << endl;
+    } else {
+        cout << "16:9" << endl;
     }
-    rep(i, n) {
-        if(sum / 2.0 < p[i]) {
-            cout << s[i] << endl;
-            return 0;
-        }
-    }
-    cout << "atcoder" << endl;
     return 0;
 }

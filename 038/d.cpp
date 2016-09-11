@@ -10,32 +10,53 @@ using vchar = vector<char>;
 using vstring = vector<string>;
 
 const int INF = 1e9;
-vint boxes[100001];
+using P = pair<int, int>;
+
+struct segtree {
+    int n;
+    vint d;
+    segtree(int mx) {
+        n = 1;
+        while(n < mx) n *= 2;
+        d = vint(n * 2);
+    }
+    
+    int getMax(int a, int b, int i = 1, int l = 0, int r = -1) {
+        if(r == -1) r = n;
+        if(a <= l && r <= b) return d[i];
+        int res = 0;
+        int c = (l + r) / 2;
+        if(a < c) res = max(res, getMax(a, b, i * 2, l, c));
+        if(c < b) res = max(res, getMax(a, b, i * 2 + 1, c, r));
+        return res;
+    }
+    
+    void add(int i, int x) {
+        i += n;
+        while(i) {
+            d[i] = max(d[i], x);
+            i /= 2;
+        }
+    }
+};
 
 int main() {
     int n; cin >> n;
-    set<int> hs;
+    vector<P> a(n);
     rep(i, n) {
-        int h, w; cin >> w >> h;
-        hs.insert(h);
-        boxes[h].push_back(w);
+        cin >> a[i].first >> a[i].second;
+        a[i].second *= -1;
     }
-    int bmw = -INF;
-    int count = 0;
-    for(int h : hs) {
-    // for(auto&& it = hs.rbegin(); it != hs.rend(); it++) {
-        // const int h = *it;
-        vint& w = boxes[h];
-        sort(w.begin(), w.end());
-        const int m = w.size();
-        rep(i, m) {
-            // cout << h << " " << w[i] << endl;
-            if(w[i] <= bmw) continue;
-            bmw = w[i];
-            count++;
-            break;
-        }
+    sort(a.begin(), a.end());
+    
+    int ans = -INF;
+    segtree tree(100004);
+    rep(i, n) {
+        int h = -a[i].second;
+        int now = tree.getMax(0, h) + 1;
+        ans = max(ans, now);
+        tree.add(h, now);
     }
-    cout << count << endl;
+    cout << ans << endl;
     return 0;
 }
